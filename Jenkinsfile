@@ -26,10 +26,10 @@ pipeline {
                 script {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '65cf11bb-1133-4170-8acf-0812e41d9377', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         if (params.ENVIRONMENT == 'dev') {
-                            sh 'sed -i "s|TERRAFORM_STATE_FILE|dev-terraform.tfstate|g" backend-config.tfvars'
+                            sh 'sed -i "s|TERRAFORM_STATE_FILE|dev-terraform.tfstate|g" dev/backend-config.tfvars'
                             sh 'terraform init -backend-config="dev/backend-config.tfvars"'
                         } else if (params.ENVIRONMENT == 'prod') {
-                            sh 'sed -i "s|TERRAFORM_STATE_FILE|prod-terraform.tfstate|g" backend-config.tfvars'
+                            sh 'sed -i "s|TERRAFORM_STATE_FILE|prod-terraform.tfstate|g" prod/backend-config.tfvars'
                             sh 'terraform init -backend-config="prod/backend-config.tfvars"'
                         }
                     }
