@@ -43,7 +43,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '65cf11bb-1133-4170-8acf-0812e41d9377', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                        sh 'terraform plan -var-file=terraform.tfvars -out=tfplan'
+                        sh 'terraform plan -out=tfplan'
                     }
                 }
             }
