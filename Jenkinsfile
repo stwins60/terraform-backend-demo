@@ -21,6 +21,17 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/stwins60/terraform-backend-demo.git'
             }
         }
+        stage('AWS configure') {
+            steps {
+                script {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '65cf11bb-1133-4170-8acf-0812e41d9377', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        sh 'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID'
+                        sh 'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
+                        sh 'aws configure set region us-east-1'
+                    }
+                }
+            }
+        }
         stage('Terraform init') {
             steps {
                 script {
